@@ -1,0 +1,15 @@
+<%= form_for @image do |f| %>
+  <div class='row'>
+    <div class='col-md-6 col-12'>
+      <%= f.label :link %>
+      <%= f.text_field :link, class: 'form-control' %>
+      <% if @image.errors.any? %>
+        <p class='error-msg'><%= @image.errors.full_messages.first %></p>
+      <% end %>
+    </div>
+
+    <div class='col-12 submit-btn-container'>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

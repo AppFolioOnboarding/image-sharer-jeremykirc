@@ -1,0 +1,6 @@
+<%= link_to 'Share an image', new_image_path %>
+<div id='image-grid'>
+  <% @images.each do |image| %>
+    <%= image_tag image.link, class: 'image' %>
+  <% end %>
+</div>

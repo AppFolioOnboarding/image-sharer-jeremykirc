@@ -6,6 +6,6 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
   test 'should succeed get home' do
     get root_path
     assert_response :success
-    assert_template 'application/home'
+    assert_template 'images/index'
   end
 end
