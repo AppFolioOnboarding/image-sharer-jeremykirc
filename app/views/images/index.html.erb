@@ -2,5 +2,10 @@
 <div id='image-grid'>
   <% @images.each do |image| %>
     <%= image_tag image.link, class: 'image' %>
+    <div class='tag-list'>
+      <% image.tags.pluck(:name).each do |tag| %>
+        <span class='tag'><%= tag %></span>
+      <% end %>
+    </div>
   <% end %>
 </div>

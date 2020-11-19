@@ -2,23 +2,25 @@ require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
   def setup
-    @image = images(:image1)
+    @image1 = images(:image1)
+    @image2 = images(:image2)
   end
 
   test 'should fail validation with missing link' do
-    @image.link = ''
-    assert_not @image.valid?
-    assert @image.errors.added?(:link, :blank)
+    @image1.link = ''
+    assert_not @image1.valid?
+    assert @image1.errors.added?(:link, :blank)
   end
 
   test 'should fail validation with invalid link' do
     link = 'invalid_url'
-    @image.link = link
-    assert_not @image.valid?
-    assert @image.errors.added?(:link, :invalid, value: link)
+    @image1.link = link
+    assert_not @image1.valid?
+    assert @image1.errors.added?(:link, :invalid, value: link)
   end
 
   test 'should succeed validation' do
-    assert @image.valid?
+    assert @image1.valid?
+    assert @image2.valid?
   end
 end
