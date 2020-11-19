@@ -1,0 +1,10 @@
+tagging1:
+  taggable: image2
+  tag: tag1
+  taggable_type: Image
+  context: tags
+tagging2:
+  taggable: image2
+  tag: tag2
+  taggable_type: Image
+  context: tags

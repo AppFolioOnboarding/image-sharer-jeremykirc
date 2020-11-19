@@ -36,11 +36,26 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal Image.last.link, link
   end
 
+  test 'should succeed post create with tags' do
+    link = 'https://test_image.com'
+    tag_list = %w[tag1 tag2]
+    assert_difference 'Image.count', +1  do
+      post images_path, params: { image: { link: link, tag_list: tag_list } }
+    end
+    assert_redirected_to images_path
+    assert_equal flash[:success], ImagesController::IMAGE_SAVED
+    image = Image.last
+    assert_equal image.link, link
+    assert_equal image.tags.map(&:name), tag_list
+  end
+
   # Test index.
 
-  test 'should succeed get index' do
+  test 'should succeed get index and display images and tags' do
     get images_path
     assert_response :success
     assert_template 'images/index'
+    assert_select '.image', Image.count
+    assert_select '.tag', ActsAsTaggableOn::Tag.count
   end
 end

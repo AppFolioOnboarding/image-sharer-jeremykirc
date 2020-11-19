@@ -1,10 +1,23 @@
 <%= form_for @image do |f| %>
+  <h2 class='title'>Share an image</h2>
   <div class='row'>
-    <div class='col-md-6 col-12'>
+    <div class='col-12'>
       <%= f.label :link %>
       <%= f.text_field :link, class: 'form-control' %>
-      <% if @image.errors.any? %>
-        <p class='error-msg'><%= @image.errors.full_messages.first %></p>
+      <% if @image.errors[:link].any? %>
+        <p class='error-msg'><%= @image.errors.full_messages_for(:link).first %></p>
+      <% end %>
+    </div>
+
+    <div class='col-12'>
+      <%= f.label :tag_list, 'Tags' %>
+      <%= f.text_field :tag_list,
+        name: 'image[tag_list][]',
+        value: f.object.tag_list.join(', '),
+        class: 'form-control'
+      %>
+      <% if @image.errors[:tag_list].any? %>
+        <p class='error-msg'><%= @image.errors.full_messages_for(:tag_list).first %></p>
       <% end %>
     </div>
 

@@ -1,3 +1,7 @@
+.title {
+  margin-bottom: 20px;
+}
+
 .form-control {
   margin-bottom: 10px;
 }
@@ -18,5 +22,14 @@
     width: 400px;
     margin-bottom: 10px;
     margin-right: 10px;
+  }
+  .tag-list {
+    margin-bottom: 30px;
+    .tag {
+      padding: 5px 8px;
+      border-radius: 4px;
+      background-color: slategray;
+      color: white;
+    }
   }
 }
