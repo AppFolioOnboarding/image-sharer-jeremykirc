@@ -19,6 +19,10 @@ class ImagesController < ApplicationController
     @images = Image.order(created_at: :desc).limit(50)
   end
 
+  def destroy
+    Image.find(params[:id]).destroy!
+  end
+
   private
 
   def image_params

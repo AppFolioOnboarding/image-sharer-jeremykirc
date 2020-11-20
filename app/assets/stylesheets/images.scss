@@ -17,6 +17,7 @@
 }
 
 #image-grid {
+  width: 400px;
   margin-top: 20px;
   .image {
     width: 400px;
@@ -24,12 +25,31 @@
     margin-right: 10px;
   }
   .tag-list {
+    display: inline-block;
+  }
+  .delete-image-btn {
+    float: right;
     margin-bottom: 30px;
-    .tag {
-      padding: 5px 8px;
-      border-radius: 4px;
-      background-color: slategray;
-      color: white;
-    }
+  }
+}
+
+.tag, .filter-tag {
+  padding: 5px 8px;
+  border-radius: 4px;
+  background-color: teal;
+  color: white;
+}
+
+.filter {
+  width: 400px;
+  display: none;
+  margin-top: 20px;
+  border: 2px solid lightgray;
+  border-radius: 4px;
+  padding: 8px;
+  #clear-filter-btn {
+    float: right;
+    position: relative;
+    bottom: 4px;
   }
 }

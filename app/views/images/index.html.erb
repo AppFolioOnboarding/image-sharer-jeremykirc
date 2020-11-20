@@ -1,11 +1,21 @@
 <%= link_to 'Share an image', new_image_path %>
+<div class='filter'>
+  <span>Tag Filter: </span>
+  <span class='filter-tag'></span>
+  <button id='clear-filter-btn' class='btn btn-sm btn-danger'>Clear</button>
+</div>
 <div id='image-grid'>
   <% @images.each do |image| %>
-    <%= image_tag image.link, class: 'image' %>
-    <div class='tag-list'>
-      <% image.tags.pluck(:name).each do |tag| %>
-        <span class='tag'><%= tag %></span>
-      <% end %>
+    <div class='image-card'>
+      <%= image_tag image.link, class: 'image' %>
+      <div class='tag-list'>
+        <% image.tags.pluck(:name).each do |tag| %>
+          <span class='tag'><%= tag %></span>
+        <% end %>
+      </div>
+      <button id='<%= image.id %>' class='btn btn-sm btn-danger delete-image-btn'>
+        Delete image
+      </button>
     </div>
   <% end %>
 </div>

@@ -8,3 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import '../image_sharing';
+
+require('./image_sharing');
