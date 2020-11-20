@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @image1 = images(:image1)
+  end
+
   # Test new.
 
   test 'should succeed get new' do
@@ -12,7 +16,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   # Test create.
 
   test 'should fail post create with missing link' do
-    post images_path, params: { image: { link: '' } }
+    post create_image_path, params: { image: { link: '' } }
     assert_response :success
     assert_template 'images/new'
     assert_select '.error-msg', 1
@@ -20,7 +24,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should fail post create with invalid link' do
     link = 'invalid_link'
-    post images_path, params: { image: { link: link } }
+    post create_image_path, params: { image: { link: link } }
     assert_response :success
     assert_template 'images/new'
     assert_select '.error-msg', 1
@@ -28,8 +32,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should succeed post create' do
     link = 'https://test_image.com'
-    assert_difference 'Image.count', +1  do
-      post images_path, params: { image: { link: link } }
+    assert_difference 'Image.count', +1 do
+      post create_image_path, params: { image: { link: link } }
     end
     assert_redirected_to images_path
     assert_equal flash[:success], ImagesController::IMAGE_SAVED
@@ -39,8 +43,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test 'should succeed post create with tags' do
     link = 'https://test_image.com'
     tag_list = %w[tag1 tag2]
-    assert_difference 'Image.count', +1  do
-      post images_path, params: { image: { link: link, tag_list: tag_list } }
+    assert_difference 'Image.count', +1 do
+      post create_image_path, params: { image: { link: link, tag_list: tag_list } }
     end
     assert_redirected_to images_path
     assert_equal flash[:success], ImagesController::IMAGE_SAVED
@@ -57,5 +61,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_template 'images/index'
     assert_select '.image', Image.count
     assert_select '.tag', ActsAsTaggableOn::Tag.count
+  end
+
+  # Test destroy.
+
+  test 'should succeed delete destroy' do
+    assert_difference 'Image.count', -1 do
+      delete image_path(@image1)
+    end
+    assert_response :success
   end
 end

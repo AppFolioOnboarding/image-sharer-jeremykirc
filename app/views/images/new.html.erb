@@ -1,11 +1,11 @@
-<%= form_for @image do |f| %>
+<%= form_for @image, url: '/images/new' do |f| %>
   <h2 class='title'>Share an image</h2>
   <div class='row'>
     <div class='col-12'>
       <%= f.label :link %>
       <%= f.text_field :link, class: 'form-control' %>
       <% if @image.errors[:link].any? %>
-        <p class='error-msg'><%= @image.errors.full_messages_for(:link).first %></p>
+        <p class='error-msg js-link'><%= @image.errors.full_messages_for(:link).first %></p>
       <% end %>
     </div>
 
@@ -22,7 +22,7 @@
     </div>
 
     <div class='col-12 submit-btn-container'>
-      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      <%= f.submit 'Submit', id: 'submit-btn', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>
