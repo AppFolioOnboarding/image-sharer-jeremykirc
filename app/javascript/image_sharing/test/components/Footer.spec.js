@@ -1,13 +1,13 @@
 /* eslint-env mocha */
 
 import assert from 'assert';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import Footer from '../../components/Footer';
 
 describe('<Footer />', () => {
   it('should render correctly', () => {
-    const wrapper = mount(<Footer text='copyright' />);
+    const wrapper = shallow(<Footer text='copyright' />);
     const footer = wrapper.find('footer');
     assert.strictEqual(footer.length, 1);
 
