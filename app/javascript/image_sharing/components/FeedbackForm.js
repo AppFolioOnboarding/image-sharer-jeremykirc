@@ -1,58 +1,71 @@
-import React, { useState } from 'react';
-import submitFeedback from '../utils/feedback_helper.js';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
-const FeedbackForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    comment: '',
-  });
+import FeedbackService from '../services/FeedbackService';
+import FlashMessage from './FlashMessage';
 
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+@observer
+export default class FeedbackForm extends Component {
+  constructor(props) {
+    super(props);
+    this.feedbackService = new FeedbackService(props.feedbackStore);
+    this.feedbackStore = props.feedbackStore;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  handleInputChange = (e) => {
+    this.feedbackStore.setFormData(e.target.name, e.target.value);
   };
 
-  const handleFormSubmit = (e) => {
+  handleFormSubmit = (e) => {
     e.preventDefault();
 
-    submitFeedback(formData);
+    this.feedbackService.submitFeedback(this.feedbackStore.formData);
   };
 
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <div className='row'>
-        <div className='col-6'>
-          <label htmlFor='name'>
-            Your Name
-            <input
-              required
-              id='name'
-              name='name'
-              type='text'
-              value={formData.name}
-              onChange={handleInputChange}
-              className='form-control'
-            />
-          </label>
-        </div>
-        <div className='col-12'>
-          <label htmlFor='comment'>
-            Comment
-            <textarea
-              required
-              id='comment'
-              name='comment'
-              value={formData.comment}
-              onChange={handleInputChange}
-              className='form-control'
-            />
-          </label>
-        </div>
-        <div className='col-12 submit-btn-container'>
-          <button className='btn btn-primary' type='submit'>Submit</button>
-        </div>
-      </div>
-    </form>
-  );
-};
+  render() {
+    return (
+      <>
+        <FlashMessage feedbackStore={this.feedbackStore} />
+        <form onSubmit={this.handleFormSubmit}>
+          <div className='row'>
+            <div className='col-6'>
+              <label htmlFor='name'>
+                Your Name
+                <input
+                  id='name'
+                  name='name'
+                  type='text'
+                  value={this.feedbackStore.formData.name}
+                  onChange={this.handleInputChange}
+                  className='form-control'
+                />
+              </label>
+            </div>
+            <div className='col-12'>
+              <label htmlFor='comment'>
+                Comment
+                <textarea
+                  id='comment'
+                  name='comment'
+                  value={this.feedbackStore.formData.comment}
+                  onChange={this.handleInputChange}
+                  className='form-control'
+                />
+              </label>
+            </div>
+            <div className='col-12 submit-btn-container'>
+              <button className='btn btn-primary' type='submit'>Submit</button>
+            </div>
+          </div>
+        </form>
+      </>
+    );
+  }
+}
 
-export default FeedbackForm;
+FeedbackForm.propTypes = {
+  feedbackStore: PropTypes.object.isRequired
+};

@@ -1,3 +1,7 @@
+.btn:hover {
+  cursor: pointer;
+}
+
 .title {
   margin-bottom: 20px;
 }
@@ -26,6 +30,7 @@
   }
   .tag-list {
     display: inline-block;
+    margin-top: 4px;
   }
   .delete-image-btn {
     float: right;
@@ -35,9 +40,10 @@
 
 .tag, .filter-tag {
   padding: 5px 8px;
-  border-radius: 4px;
-  background-color: teal;
-  color: white;
+  border-radius: 8px;
+  background-color: transparent;
+  border: 2px solid gray;
+  color: gray;
 }
 
 .filter {
